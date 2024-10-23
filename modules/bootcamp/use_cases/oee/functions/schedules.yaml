@@ -1,118 +1,95 @@
-- name: Run calculations every 10 minutes for last hour of data
-  cronExpression: "5-59/10 * * * *"
-  functionExternalId: oee_timeseries
-  data:
-    sites:
-      - Oslo
-      - Hannover
-      - Nuremberg
-      - Marseille
-      - Houston
-      - Sao_Paulo
-      - Kuala_Lumpur
-      - Chicago
-      - Rotterdam
-      - London
-    lookback_minutes: 60
+- name: Frontfill every 10 minutes last hour of data (streamer)
+  functionExternalId: icapi_datapoints_extractor
+  cronExpression: "*/10 * * * *"
   authentication:
-    clientId: {{ data_pipeline_oee_client_id }}
-    clientSecret: {{ data_pipeline_oee_client_secret }}
-
-- name: Run calculations once a day for 30 days history (Oslo)
-  cronExpression: "0 1 * * *"
-  functionExternalId: oee_timeseries
+    clientId: {{ icapi_extractors_client_id }}
+    clientSecret: {{ icapi_extractors_client_secret }}
+ 
+- name: Backfill Houston once a day for the last 30 days (gap filling)
+  functionExternalId: icapi_datapoints_extractor
+  cronExpression: "0 0 * * *"
   data:
+    backfill: True
+    hours: 720
     sites:
-      - Oslo
-    lookback_minutes: 7200
-  authentication:
-    clientId: {{ data_pipeline_oee_client_id }}
-    clientSecret: {{ data_pipeline_oee_client_secret }}
-
-- name: Run calculations once a day for 30 days history (Nuremberg)
-  cronExpression: "1 1 * * *"
-  functionExternalId: oee_timeseries
+    - Houston
+ 
+- name: Backfill Oslo once a day for the last 30 days (gap filling)
+  functionExternalId: icapi_datapoints_extractor
+  cronExpression: "1 0 * * *"
   data:
+    backfill: True
+    hours: 720
     sites:
-      - Nuremberg
-    lookback_minutes: 7200
-  authentication:
-    clientId: {{ data_pipeline_oee_client_id }}
-    clientSecret: {{ data_pipeline_oee_client_secret }}
-
-- name: Run calculations once a day for 30 days history (Marseille)
-  cronExpression: "2 1 * * *"
-  functionExternalId: oee_timeseries
+    - Oslo
+ 
+- name: Backfill Kuala Lumpur once a day for the last 30 days (gap filling)
+  functionExternalId: icapi_datapoints_extractor
+  cronExpression: "2 0 * * *"
   data:
+    backfill: True
+    hours: 720
     sites:
-      - Marseille
-    lookback_minutes: 7200
-  authentication:
-    clientId: {{ data_pipeline_oee_client_id }}
-    clientSecret: {{ data_pipeline_oee_client_secret }}
-
-- name: Run calculations once a day for 30 days history (Houston)
-  cronExpression: "3 1 * * *"
-  functionExternalId: oee_timeseries
+    -  Kuala Lumpur
+ 
+- name: Backfill Hannover once a day for the last 30 days (gap filling)
+  functionExternalId: icapi_datapoints_extractor
+  cronExpression: "3 0 * * *"
   data:
+    backfill: True
+    hours: 720
     sites:
-      - Houston
-    lookback_minutes: 7200
-  authentication:
-    clientId: {{ data_pipeline_oee_client_id }}
-    clientSecret: {{ data_pipeline_oee_client_secret }}
-
-- name: Run calculations once a day for 30 days history (Sao Paulo)
-  cronExpression: "4 1 * * *"
-  functionExternalId: oee_timeseries
+    - Hannover
+ 
+- name: Backfill Nuremberg once a day for the last 30 days (gap filling)
+  functionExternalId: icapi_datapoints_extractor
+  cronExpression: "4 0 * * *"
   data:
+    backfill: True
+    hours: 720
     sites:
-      - Sao_Paulo
-    lookback_minutes: 7200
-  authentication:
-    clientId: {{ data_pipeline_oee_client_id }}
-    clientSecret: {{ data_pipeline_oee_client_secret }}
-
-- name: Run calculations once a day for 30 days history (Kuala Lumpur)
-  cronExpression: "5 1 * * *"
-  functionExternalId: oee_timeseries
+    - Nuremberg
+ 
+- name: Backfill Nuremberg once a day for the last 30 days (gap filling)
+  functionExternalId: icapi_datapoints_extractor
+  cronExpression: "5 0 * * *"
   data:
+    backfill: True
+    hours: 720
     sites:
-      - Kuala_Lumpur
-    lookback_minutes: 7200
-  authentication:
-    clientId: {{ data_pipeline_oee_client_id }}
-    clientSecret: {{ data_pipeline_oee_client_secret }}
-
-- name: Run calculations once a day for 30 days history (Chicago)
-  cronExpression: "6 1 * * *"
-  functionExternalId: oee_timeseries
+    - Nuremberg
+ 
+- name: Backfill Marseille once a day for the last 30 days (gap filling)
+  functionExternalId: icapi_datapoints_extractor
+  cronExpression: "6 0 * * *"
   data:
+    backfill: True
+    hours: 720
     sites:
-      - Chicago
-    lookback_minutes: 7200
-  authentication:
-    clientId: {{ data_pipeline_oee_client_id }}
-    clientSecret: {{ data_pipeline_oee_client_secret }}
-
-- name: Run calculations once a day for 30 days history (Rotterdam)
-  cronExpression: "7 1 * * *"
-  functionExternalId: oee_timeseries
+    - Marseille
+ 
+- name: Backfill Sao Paulo once a day for the last 30 days (gap filling)
+  functionExternalId: icapi_datapoints_extractor
+  cronExpression: "7 0 * * *"
   data:
+    backfill: True
+    hours: 720
     sites:
-      - Rotterdam
-    lookback_minutes: 7200
-  authentication:
-    clientId: {{ data_pipeline_oee_client_id }}
-    clientSecret: {{ data_pipeline_oee_client_secret }}
-
-- name: Run calculations once a day for 30 days history (London)
-  cronExpression: "8 1 * * *"
-  functionExternalId: oee_timeseries
+    - Sao Paulo
+ 
+- name: Backfill Chicago once a day for the last 30 days (gap filling)
+  functionExternalId: icapi_datapoints_extractor
+  cronExpression: "8 0 * * *"
   data:
+    backfill: True
+    hours: 720
     sites:
-      - London
-    lookback_minutes: 7200
-  authentication:
-    clientId: {{ data_pipeline_oee_client_id }}
-    clientSecret: {{ data_pipeline_oee_client_secret }}
+    - Chicago
+- name: Backfill London once a day for the last 30 days (gap filling)
+  functionExternalId: icapi_datapoints_extractor
+  cronExpression: "9 0 * * *"
+  data:
+    backfill: True
+    hours: 720
+    sites:
+    - London
