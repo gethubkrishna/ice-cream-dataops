@@ -1,4 +1,4 @@
-nvironment:
+environment:
   name: prod
   project: cdf-bootcamp-63-prod
   type: prod
